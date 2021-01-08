@@ -1,0 +1,157 @@
+Assignment no:01        
+Program : Horizontal and Vertical Fragmentation
+Roll No:07
+import pymysql
+from tkinter import *
+#import mysql.connector
+
+def des():
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    id = Label(top, text=" Enter where clause")
+    id.grid(column=0, row=4)
+    list = ["M", "F"]
+    droplist = OptionMenu(top, c, *list)
+    droplist.config(width=20)
+    c.set("Gender")
+    droplist.grid(column=0, row=6)
+    txtnm = Entry(top, width=15)
+    txtnm.grid(column=1, row=4)
+    txtnoe = Entry(top, width=15)
+    txtnoe.grid(column=1, row=6)
+    btn = Button(top, text="Add Data")
+    btn.grid(column=1, row=10)
+    top.mainloop()
+def d1():
+    top = Tk()
+    top.geometry('350x200')
+    name = Label(top, text=" Enter where clause(Nm)")
+    name.grid(column=0, row=4)
+    txtnm = Entry(top, width=15)
+    txtnm.grid(column=1, row=4)
+    def Click_me():
+        s=txtnm.get()
+        mycursor.execute("SELECT * FROM student1 where NAME='" + s + "'")
+        data = mycursor.fetchall()
+        print(data)
+    btn = Button(top, text="Submit",command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+def d2():
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    id = Label(top, text=" Enter where clause(class)")
+    id.grid(column=0, row=4)
+    txtm = Entry(top, width=15)
+    txtm.grid(column=1, row=4)
+
+    def Click_me():
+        s = txtm.get()
+        mycursor.execute("SELECT * FROM student1 where Class='" + s + "'")
+        data = mycursor.fetchall()
+        print(data)
+    btn = Button(top, text="Submit", command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+def d3():
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    id = Label(top, text=" Enter where clause(gender)")
+    id.grid(column=0, row=4)
+    txtm = Entry(top, width=15)
+    txtm.grid(column=1, row=4)
+
+    def Click_me():
+        s = txtm.get()
+        mycursor.execute("SELECT * FROM student1 where Gender='" + s + "'")
+        data = mycursor.fetchall()
+        print(data)
+    btn = Button(top, text="Submit", command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+def d5():
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    id = Label(top, text=" Enter Start Id")
+    id.grid(column=0, row=4)
+    sid = Entry(top, width=15)
+    sid.grid(column=1, row=4)
+    lid = Label(top, text="Enter End Id")
+    lid.grid(column=0, row=8)
+    eid = Entry(top, width=15)
+    eid.grid(column=1, row=8)
+    def Clichggffk_me():
+        s = sid.get()
+        e=eid.get()
+        mycursor.execute("SELECT * FROM student1 where id BETWEEN '"+s+"' and '"+e+"'" )
+        data = mycursor.fetchall()
+        print(data)
+
+    btn = Button(top, text="Submit", command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+
+def d4():
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    id = Label(top, text=" Enter Attribute Name")
+    id.grid(column=0, row=4)
+    txtm = Entry(top, width=15)
+    txtm.grid(column=1, row=4)
+    def Click_me():
+        s = txtm.get()
+        mycursor.execute("SELECT"+s+"FROM student1")
+        data = mycursor.fetchall()
+        print(data)
+
+    btn = Button(top, text="Submit", command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+print("Enter the choice:\n 1.Horizontal Fragmentation \n 2.Vertical Fragmentation")
+ch=input()
+conn=pymysql.connect(host='localhost',user='root',password='',db = 'stud')
+mycursor = conn.cursor()
+if ch=='1':
+    print("Enter the choice for where clause :\n 1.Name \n 2.Class \n 3.Gender\n 4.id")
+    h = input()
+    if h=="1":
+        d1()
+    if h=='2':
+        d2()
+    if h=='3':
+        d3()
+    if h=='4':
+        d5()
+
+if ch=='2':
+    print("Vartical Fragmentation")
+    top = Tk()
+    top.geometry('350x200')
+    c = StringVar()
+    attnm = Label(top, text=" Enter attribute name")
+    attnm.grid(column=0, row=4)
+    txt = Entry(top, width=20)
+    txt.grid(column=0, row=6)
+    def Click_me():
+        s=txt.get()
+        p=list(s.split(" "))
+        l=p[0]
+        mycursor.execute("""CREATE TABLE IF NOT EXISTS student2 (
+               l CHAR(20))""")
+        i=1
+        while i!=len(p):
+            mycursor.execute("ALTER TABLE student2 ADD '"+p[i]+"' CHAR(20)")
+            i+=1
+    btn = Button(top, text="Submit",command=Click_me)
+    btn.grid(column=1, row=10)
+    top.mainloop()
+
+    conn.commit()
+    conn.close()
+Output:
+ 

@@ -1,0 +1,90 @@
+Assignment no:03   
+Program : Implement Semijoin in distributed database
+Roll No:07
+program:
+import pymysql
+from tkinter import *
+# top = Tk()
+# top.geometry('350x200')
+# name = Label(top, text=" Enter where clause(Nm)")
+# name.grid(column=0, row=4)
+# txtnm = Entry(top, width=15)
+# txtnm.grid(column=1, row=4)
+# top.mainloop()
+
+conn=pymysql.connect(host='localhost',user='root',password='',db = 'stud')
+mycursor = conn.cursor()
+# mycursor.execute("""CREATE TABLE IF NOT EXISTS Teacher2 (
+#        CID CHAR(10) PRIMARY KEY,
+#         CNAME  CHAR(20) NOT NULL,
+#         id INT(10),
+#         sub CHAR(10)
+#          )""")
+# mycursor.execute("""
+#     INSERT INTO student1 (id,Name,Class,gender,percentage)
+#     VALUES
+#     (108,'Veena','FE','f',80),
+#     (109,'Sona','SE','f',77),
+#     (110,'Praniti','TE','f',66),
+#     (93,'Nishi','BE','f',78),
+#     (94,'Pooja','FE','f',80),
+#     (95,'Rayma','SE','f',90),
+#     (96,'Rohit','TE','m',90),
+#     (97,'Ruhan','BE','M',50),
+#     (98,'Ruhan','FE','m',55),
+#     (99,'Sid','SE','m',60),
+#     (111,'Ishan','TE','m',78)
+#     """)
+# mycursor.execute("INSERT INTO Teacher2 (CID,CNAME,id,sub) VALUES('ab121','Sanovar',102,'English')")
+# mycursor.execute("""
+#     INSERT INTO Teacher2 (CID,CNAME,id,sub)
+#     VALUES
+#     ('ab117','Veena',3,'DS'),
+#     ('ds112','Sona',3,'CPP'),
+#     ('cpp113','Praniti',3,'ADS'),
+#     ('OP124','Nishi',4,'DC'),
+#     ('OP125','Pooja',4,'DB'),
+#     ('c108','Rayma',4,'Java'),
+#     ('MP115','Rohit',5,'Python'),
+#     ('MP116','Ruhan',5,'MP'),
+#     ('TOC117','Ruhan',5,'TOC'),
+#     ('TOC118','Sid',6,'TOC'),
+#     ('C9','Ishani',6,'C')
+#     """)
+#class record():
+top = Tk()
+top.geometry('950x1000')
+id = Label(top, text='id',width=10)
+id.grid(column=0, row=0)
+name = Label(top, text='Name',width=10)
+name.grid(column=1, row=0)
+clas= Label(top, text='class',width=10)
+clas.grid(column=2, row=0)
+gen = Label(top, text='gender',width=10)
+gen.grid(column=3, row=0)
+mark = Label(top, text='Percentage',width=10)
+mark.grid(column=4, row=0)
+tid = Label(top, text='TID',width=10)
+tid.grid(column=5, row=0)
+clas= Label(top, text='TName',width=10)
+clas.grid(column=6, row=0)
+sid = Label(top, text='Id',width=10)
+sid.grid(column=7, row=0)
+sub = Label(top, text='Subject',width=10)
+sub.grid(column=8, row=0)
+mycursor.execute("SELECT * FROM student1 s ,Teacher2 t where s.id=t.id")
+# mycursor.execute("select * from student1 semijoin Teacher2")
+data= mycursor.fetchall()
+for index, dat in enumerate(data):
+        Label(top, text=dat[0]).grid(row=index + 2, column=0)
+        Label(top, text=dat[1]).grid(row=index + 2, column=1)
+        Label(top, text=dat[2]).grid(row=index + 2, column=2)
+        Label(top, text=dat[3]).grid(row=index + 2, column=3)
+        Label(top, text=dat[4]).grid(row=index + 2, column=4)
+        Label(top, text=dat[5]).grid(row=index + 2, column=5)
+        Label(top, text=dat[6]).grid(row=index + 2, column=6)
+        Label(top, text=dat[7]).grid(row=index + 2, column=7)
+        Label(top, text=dat[8]).grid(row=index + 2, column=8)
+top.mainloop()
+output:
+ 

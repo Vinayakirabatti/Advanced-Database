@@ -1,0 +1,103 @@
+create table Sales(item_name varchar(20),color varchar(20),sz varchar(20),no integer);
+********************************************************
+
+insert into Sales values('skirt','dark','small',8);
+
+insert into Sales values('skirt','pastel','small',8);
+
+insert into Sales values('skirt','white','small',8);
+
+insert into Sales values('skirt','dark','medium',8);
+
+insert into Sales values('skirt','pastel','medium',8);
+
+insert into Sales values('skirt','white','medium',8);
+
+insert into Sales values('skirt','dark','large',8);
+
+insert into Sales values('skirt','pastel','large',8);
+
+insert into Sales values('skirt','white','large',8);
+
+********************************************************
+
+insert into Sales values('dress','dark','small',8);
+
+insert into Sales values('dress','pastel','small',8);
+
+insert into Sales values('dress','white','small',8);
+
+insert into Sales values('dress','dark','medium',8);
+
+insert into Sales values('dress','pastel','medium',8);
+
+insert into Sales values('dress','white','medium',8);
+
+insert into Sales values('dress','dark','large',8);
+
+insert into Sales values('dress','pastel','large',8);
+
+insert into Sales values('dress','white','large',8);
+
+___________________________________________________________
+
+insert into Sales values('shirt','dark','small',8);
+
+insert into Sales values('shirt','pastel','small',8);
+
+insert into Sales values('shirt','white','small',8);
+
+insert into Sales values('shirt','dark','medium',8);
+
+insert into Sales values('shirt','pastel','medium',8);
+
+insert into Sales values('shirt','white','medium',8);
+
+insert into Sales values('shirt','dark','large',8);
+
+insert into Sales values('shirt','pastel','large',8);
+
+insert into Sales values('shirt','white','large',8);
+
+______________________________________________________________
+
+
+insert into Sales values('pant','dark','small',8);
+
+insert into Sales values('pant','pastel','small',8);
+
+insert into Sales values('pant','white','small',8);
+
+insert into Sales values('pant','dark','medium',8);
+
+insert into Sales values('pant','pastel','medium',8);
+
+insert into Sales values('pant','white','medium',8);
+
+insert into Sales values('pant','dark','large',8);
+
+insert into Sales values('pant','pastel','large',8);
+
+insert into Sales values('pant','white','large',8);
+
+
+_________________________________________________________________________________________
+
+select * from Sales;
+
+select Sum(no) from Sales where item_name='pant';
+
+select item_name,Sum(no) from Sales group by item_name;
+
+select Sum(no) from Sales where color='dark';
+
+select Sum(no) from Sales;
+
+select item_name,color,sz,Sum(no) from Sales group by cube(item_name,color,sz);
+
+select item_name,color,Sum(no) from Sales group by cube(item_name,color);
+
+select item_name,color,sum(no) from Sales group by rollup(item_name,color);
+
+select item_name,color,sz,sum(no) from Sales group by rollup(item_name),rollup(color,sz);
+

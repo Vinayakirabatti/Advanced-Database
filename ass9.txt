@@ -1,0 +1,78 @@
+Assignment No:09 and 10
+statement:1)Finding frequent itemset of given dataset
+	    2)Finding association rules
+Roll no:07
+Program:import pymysql
+from itertools import permutations
+conn=pymysql.connect(host='localhost',user='root',password='',db = 'stud')
+mycursor = conn.cursor()
+l={}
+threshold_support=50
+confidence=60
+mycursor.execute("select * from dataset")
+data = mycursor.fetchall()
+mycursor.execute("select count(onion) from dataset where onion>0");
+odata =str(mycursor.fetchall())
+l['onion']=int(odata[2])
+mycursor.execute("select count(potato) from dataset where potato>0");
+pdata = str(mycursor.fetchall())
+l['potato']=int(pdata[2])
+mycursor.execute("select count(beer) from dataset where beer>0");
+bdata = str(mycursor.fetchall())
+l['beer']=int(bdata[2])
+mycursor.execute("select count(burger) from dataset where burger>0");
+burdata = str(mycursor.fetchall())
+l['burger']=int(burdata[2])
+mycursor.execute("select count(milk) from dataset where milk>0");
+mdata = str(mycursor.fetchall())
+l['milk']=int(mdata[2])
+l1=[]
+l2=[]
+d1={}
+for key,value in l.items():
+    if ((value/9)*100) > threshold_support:
+        l1.append(key)
+print("frequent itemsets are :",l1)
+perm = permutations(l1,2)
+for i in list(perm):
+    for j in range(len(i)-1):
+        if i[j] in l and i[j+1] in l:
+            l2.append(i)
+for i in range(len(l2)):
+    s=(l2[i][0])
+    s1=(l2[i][1])
+    mycursor.execute("select count(*) from dataset where "+s+" >0 and "+s1+" >0 ")
+    data=str(mycursor.fetchall())
+    d1[l2[i]]=data[2]
+sl=[]
+sl2=[]
+d2={}
+ass=[]
+for key,value in d1.items():
+    if ((int(value)/9)*100) > threshold_support:
+        sl.append(key)
+print(sl)
+perm1= permutations(l1,3)
+for i in list(perm1):
+    for j in range(len(i)-2):
+        if i[j] in l and i[j+1] in l and i[j+2] in l:
+            sl2.append(i)
+for i in range(len(sl2)):
+    s=(sl2[i][0])
+    s1=(sl2[i][1])
+    s2=sl2[i][2]
+    mycursor.execute("select count(*) from dataset where "+s+" >0 and "+s1+" >0 and "+s2+">0 ")
+    data=str(mycursor.fetchall())
+    d2[sl2[i]]=data[2]
+k=0
+for key,value in d2.items():
+    if ((int(value)/int(l[key[0]]))*100) > confidence:
+        if ((int(value)/9)*100) > threshold_support:
+            ass.append(key)
+if len(ass):
+    print(ass)
+
+output:
+frequent itemsets are : ['onion', 'potato', 'burger', 'milk']
+[('onion', 'potato'), ('potato', 'onion'), ('burger', 'milk'), ('milk', 'burger')]
+
